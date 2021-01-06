@@ -96,7 +96,7 @@ export const FIGHTERS: fighters[] = [
   name: "Freezer",
   hp: 25,
   cp: 5,
-  picture: "https://www.pngkey.com/png/detail/354-3548755_dragn-ball-super-dragon-ball-golden-freezer.png",
+  picture: "https://www.pngkey.com/png/detail/162-1620003_golden-frieza-by-urielalv-golden-freezer.png",
   types: ["Planet freezer"],
   created: new Date()
  },

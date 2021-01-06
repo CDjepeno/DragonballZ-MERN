@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import fighters from './models/fighters';
+import React, { useEffect, useState } from 'react';
 import FIGHTERS from './models/mock-fighters';
-  
+import fighters from './models/fighters';
+import './style.scss'
+ 
+// initialiser le state avec un tableau vide: []
+// Charger le liste FIGTHERS à l'initialisation du composant
+// Veiller à ce que la liste des fighters ne soit chargé dans le state qu'une seule fois
 const App  : React.FC = () => {
-    const [name, setName] = useState<String>('React');
-    const [Fighters, setFighters] = useState();
+    const [Fighters, setFighters] = useState<fighters[]>([]);
+
+    useEffect(() => {
+        setFighters(FIGHTERS)
+    },[]);
     
     return (
-   <>
-        <h1>ils y a {FIGHTERS.length} fighthers</h1>
+        <>
+            <div className="container">
+                <h1>ils y a {Fighters.length} fighthers</h1>
 
-        {FIGHTERS.map(fighter => 
-            <img src={fighter.picture} alt=""/>
-
-        )}
-   </>
+                <div className="row">
+                    {FIGHTERS.map(fighter => 
+                        <div className="col">
+                            <p key={fighter.id}>{fighter.name}</p>
+                            <img  src={fighter.picture} alt=""/>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </>
     );
 }
   
