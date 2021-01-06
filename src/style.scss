@@ -1,11 +1,10 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
-body {
-    background-color: #F8F8F8;
-    /* background-image: url('https://www.premiere.fr/sites/default/files/styles/partage_rs/public/2018-05/dbs-episode-122-featured.jpg'); */
-    background-repeat: repeat;
-    background-size: cover;
 
+body {
+    // background-color: #F8F8F8;
+     background-image: url('https://sm.ign.com/ign_fr/screenshot/default/ball_e9mq.jpg'); 
+     background-repeat: no-repeat;
+     background-size: cover;
     img {
-        width: 15rem;
+        height: 20rem;
     }
 }

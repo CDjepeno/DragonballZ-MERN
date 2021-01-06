@@ -14,20 +14,27 @@ const App  : React.FC = () => {
     },[]);
     
     return (
-        <>
-            <div className="container">
-                <h1>ils y a {Fighters.length} fighthers</h1>
-
-                <div className="row">
-                    {FIGHTERS.map(fighter => 
-                        <div className="col">
-                            <p key={fighter.id}>{fighter.name}</p>
-                            <img  src={fighter.picture} alt=""/>
+    <>
+        <h1 className="center">Fighters</h1>
+        <div className="container">
+            <div className="row">
+                {FIGHTERS.map(fighter => 
+                    <div className="col s6 m4" key={fighter.id}>
+                        <div className="card horizontal">
+                            <div className="card-image">
+                                <img  src={fighter.picture} alt=""/>
+                            </div>
+                            <div className="card-stacked">
+                                <div className="card-content">
+                                    <p className="center">{fighter.name}</p>
+                                </div>
+                            </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
-        </>
+        </div>
+    </>
     );
 }
   
