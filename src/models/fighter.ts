@@ -1,4 +1,4 @@
-export default class fighters {
+export default class Fighter {
     // 1. Typage des propiétés d'un fighter.
     id: number;
     hp: number;
