@@ -3,7 +3,6 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import Fighter from '../models/fighter';
 import formatDate from '../helpers/format-date'
 import formatType from '../helpers/format-type'
-import { NavLink } from 'react-router-dom';
 import Fighters from '../models/mock-fighters';
   
 type Params = { id: string };
@@ -29,6 +28,9 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
             <div className="card hoverable"> 
               <div className="card-image ">
                 <img src={Fighter.picture} alt={Fighter.name} style={{width: '210px', margin: '0 auto'}}/>
+                <Link to={`/fighters/edit/${Fighter.id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
+                  <i className="material-icons">edit</i>
+                </Link>
               </div>
               
               <div className="card-stacked">

@@ -35,8 +35,8 @@ const FighterCard : React.FC<Props> = ({fighter, borderColor = '#ff0000'}) => {
                 </div>
                 <div className="card-stacked">
                     <div className="card-content">
-                        <p className="center">{fighter.name}</p>
-                        <p className="center"><small>{formatDate(fighter.created)}</small></p>
+                        <p className="center b={-5}">{fighter.name}</p>
+                        {/* <p className="center"><small>{formatDate(fighter.created)}</small></p> */}
                         {fighter.types.map(type => (
                             <span key={type} className={formatType(type)}>{type}</span>
                         ))}
@@ -49,3 +49,4 @@ const FighterCard : React.FC<Props> = ({fighter, borderColor = '#ff0000'}) => {
 
 
 export default FighterCard;
+

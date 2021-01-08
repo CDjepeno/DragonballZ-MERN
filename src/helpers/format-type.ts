@@ -23,18 +23,6 @@ const formatType = (type: string): string => {
       case 'Cyborg': 
         color = 'orange accent-1'; 
         break; 
-      case 'Fée': 
-        color = 'pink lighten-4'; 
-        break; 
-      case 'Psy': 
-        color = 'deep-purple darken-2'; 
-        break; 
-      case 'Electrik': 
-        color = 'lime accent-1'; 
-        break; 
-      case 'Combat': 
-        color = 'deep-orange'; 
-        break; 
       default: 
         color = 'grey'; 
         break; 

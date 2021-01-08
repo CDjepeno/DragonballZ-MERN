@@ -4,6 +4,7 @@ import FighterList from './pages/fighter-list';
 import { Link, Route, HashRouter, Switch } from 'react-router-dom';
 import FightersDetail from './pages/fighter-detail';
 import PageNotFound from './pages/page-not-found';
+import fighterEdit from './pages/fighter-edit';
  
 const App  : React.FC = () => {
 
@@ -20,6 +21,7 @@ const App  : React.FC = () => {
                 <Switch>
                     <Route exact path="/" component={FighterList}/>
                     <Route exact path="/fighters" component={FighterList}/>
+                    <Route  path="/fighters/edit/:id" component={fighterEdit}/>
                     <Route  path="/fighters/:id" component={FightersDetail}/>
                     <Route component={PageNotFound}/>
                 </Switch>
