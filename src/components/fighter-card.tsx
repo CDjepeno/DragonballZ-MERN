@@ -28,7 +28,7 @@ const FighterCard : React.FC<Props> = ({fighter, borderColor = '#ff0000'}) => {
     } 
 
     return ( 
-        <div className="col s6 m4" onMouseEnter={showBorder} onMouseLeave={hideBorder} onClick={() => goToFighter(fighter.id)}>
+        <div id="card" className="col s6 m4" onMouseEnter={showBorder} onMouseLeave={hideBorder} onClick={() => goToFighter(fighter.id)}>
             <div className="card horizontal hoverable" style={{ borderColor: color }}>
                 <div className="card-image col">
                     <img  src={fighter.picture} alt=""/>

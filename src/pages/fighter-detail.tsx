@@ -1,34 +1,31 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
-import Fighter from '../models/fighter';
+import fighter from '../models/fighter';
 import formatDate from '../helpers/format-date'
 import formatType from '../helpers/format-type'
-import Fighters from '../models/mock-fighters';
+import FighterService from '../services/fighter-service';
   
 type Params = { id: string };
   
 const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     
-  const [Fighter, setFighter] = useState<Fighter|null>(null);
+  const [fighter, setfighter] = useState<fighter|null>(null);
   
   useEffect(() => {
-    Fighters.forEach(Fighter => {
-      if (match.params.id === Fighter.id.toString()) {
-        setFighter(Fighter);
-      }
-    })
+    FighterService.getFighter(+match.params.id)
+    .then(fighter => setfighter(fighter))
   }, [match.params.id]);
     
   return (
     <div>
-      { Fighter ? (
+      { fighter ? (
         <div className="row">
           <div className="col s12 m8 offset-m2"> 
-            <h2 className="header center">{ Fighter.name }</h2>
+            <h2 className="header center">{ fighter.name }</h2>
             <div className="card hoverable"> 
               <div className="card-image ">
-                <img src={Fighter.picture} alt={Fighter.name} style={{width: '210px', margin: '0 auto'}}/>
-                <Link to={`/fighters/edit/${Fighter.id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
+                <img src={fighter.picture} alt={fighter.name} style={{width: '210px', margin: '0 auto'}}/>
+                <Link to={`/fighters/edit/${fighter.id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
                   <i className="material-icons">edit</i>
                 </Link>
               </div>
@@ -39,26 +36,26 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
                     <tbody>
                       <tr> 
                         <td>Nom</td> 
-                        <td><strong>{ Fighter.name }</strong></td> 
+                        <td><strong>{ fighter.name }</strong></td> 
                       </tr>
                       <tr> 
                         <td>Points de vie</td> 
-                        <td><strong>{ Fighter.hp }</strong></td> 
+                        <td><strong>{ fighter.hp }</strong></td> 
                       </tr> 
                       <tr> 
                         <td>Dégâts</td> 
-                        <td><strong>{ Fighter.cp }</strong></td> 
+                        <td><strong>{ fighter.cp }</strong></td> 
                       </tr> 
                       <tr> 
                         <td>Types</td> 
                         <td>
-                          {Fighter.types.map(type => (
+                          {fighter.types.map(type => (
                            <span key={type} className={formatType(type)}>{type}</span>
                           ))}</td> 
                       </tr> 
                       <tr> 
                         <td>Date de création</td> 
-                        <td>{formatDate(Fighter.created)}</td> 
+                        <td>{formatDate(fighter.created)}</td> 
                       </tr>
                     </tbody>
                   </table>

@@ -11,9 +11,9 @@ export default class Fighter {
     // 2. Définition des valeurs par défaut des propriétés d'un fighter.
     constructor(
      id: number,
-     hp: number = 100,
-     cp: number = 10,
-     name: string = 'name',
+     hp: number = 0,
+     cp: number = 0,
+     name: string = '...',
      picture: string = 'http://...',
      types: Array<string> = ['Normal'],
      created: Date = new Date()

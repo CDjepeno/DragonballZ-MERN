@@ -2,10 +2,12 @@ import React, { FunctionComponent, useState } from 'react';
 import fighter from '../models/fighter';
 import formatType from '../helpers/format-type';
 import { useHistory } from 'react-router-dom'
+import FighterService from '../services/fighter-service';
 
   
 type Props = {
   fighter: fighter
+  isEditForm: boolean
 };
 
 type Field = {
@@ -15,15 +17,17 @@ type Field = {
 }
 
 type Form = {
-    name: Field,
-    hp: Field,
-    cp: Field,
-    types: Field
+  picture: Field,
+  name: Field,
+  hp: Field,
+  cp: Field,
+  types: Field
 }
   
-const FighterForm: FunctionComponent<Props> = ({fighter}) => {
+const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
 
     const [form, setForm] = useState<Form>({
+        picture: {value: fighter.picture},
         name: {value: fighter.name, isValid:true},
         hp: {value: fighter.hp, isValid:true},
         cp: {value: fighter.cp, isValid:true},
@@ -73,16 +77,41 @@ const FighterForm: FunctionComponent<Props> = ({fighter}) => {
 
     // Si nos champs sont valide redirection
     if(isForValid) {
-        history.push(`/fighters/${fighter.id}`)
+        fighter.picture = form.picture.value;
+        fighter.name = form.name.value;
+        fighter.hp = form.hp.value;
+        fighter.cp = form.cp.value;
+        fighter.types = form.types.value;
+
+       isEditForm ? updateFighter() : addFigther();
     }
+  }
+
+  const isAddForm = () => {
+    return !isEditForm;
   }
 
   const validateForm = () => {
     let newForm: Form = form;
 
+    // Validator url
+    if(isAddForm()) {
+      const start = "https://";
+      // const end  = ".png";
+      // || !form.picture.value.endWith(end)
+      if(!form.picture.value.startsWith(start) ) {
+        const errorMsg: string = "L'url n'est pas valide.";
+        const newField: Field = { value: form.picture.value, error: errorMsg, isValid: false};
+        newForm = { ...form, ...{picture: newField } };
+      } else {
+        const newField: Field = { value: form.picture.value, error: "", isValid: false};
+        newForm = { ...form, ...{ picture: newField } };
+      }
+    }
+
     // Validator name
     if(!/^[a-zA-Zàéè ]{3,25}$/.test(form.name.value)) {
-      const errorMsg: string = 'Le nom du pokémon est requis (1-25).';
+      const errorMsg: string = 'Le nom du fighter est requis (1-25).';
       const newField: Field = { value: form.name.value, error: errorMsg, isValid: false };
       newForm = { ...newForm, ...{ name: newField } };
     } else {
@@ -92,7 +121,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter}) => {
 
     // Validator hp
     if(!/^[0-9]{1,3}$/.test(form.hp.value)) {
-      const errorMsg: string = 'Les points de vie du pokémon sont compris entre 0 et 999.';
+      const errorMsg: string = 'Les points de vie du fighter sont compris entre 0 et 999.';
       const newField: Field = {value: form.hp.value, error: errorMsg, isValid: false};
       newForm = { ...newForm, ...{ hp: newField } };
     } else {
@@ -102,7 +131,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter}) => {
 
     // Validator cp
     if(!/^[0-9]{1,2}$/.test(form.cp.value)) {
-      const errorMsg: string = 'Les dégâts du pokémon sont compris entre 0 et 99';
+      const errorMsg: string = 'Les dégâts du fighter sont compris entre 0 et 99';
       const newField: Field = {value: form.cp.value, error: errorMsg, isValid: false};
       newForm = { ...newForm, ...{ cp: newField } };
     } else {
@@ -123,7 +152,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter}) => {
     
     // Cas n°1: Le figther a au moins 3 types.
     // Dans ce cas il faut empêcher à l'utilisateur de cocher un nouveau type, mais pas de décocher les types existants.
-    if (form.types.value.length >= 1 && !hasType(type)) { 
+    if (form.types.value.length >= 3 && !hasType(type)) { 
       return false; 
     } 
     
@@ -132,17 +161,46 @@ const FighterForm: FunctionComponent<Props> = ({fighter}) => {
     return true;
   }
 
+  const addFigther = () => {
+    FighterService.addFighter(fighter).then(() => history.push('/fighters'));
+  }
+
+  const updateFighter = () => {
+    FighterService.updateFighter(fighter).then(() => history.push(`/fighters/${fighter.id}`));
+  }
+
+  const deleteFighter = () => {
+    FighterService.deleteFighter(fighter)
+    .then(() => history.push(`/fighters`))
+  }
+
   
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <div className="row">
         <div className="col s12 m8 offset-m2">
           <div className="card hoverable"> 
-            <div className="card-image">
-              <img src={fighter.picture} alt={fighter.name} style={{width: '210px', margin: '0 auto'}}/>
-            </div>
+          { isEditForm && (
+              <div className="car-image">
+                <img src={fighter.picture} alt={fighter.name} style={{width: '210px', margin: '0 auto'}}/>
+                <span className="btn-floating halfway-fab waves-effect waves-light">
+                  <i onClick={deleteFighter} className="material-icons">delete</i>
+                </span>
+              </div>
+          )}
             <div className="card-stacked">
               <div className="card-content">
+                {/* fighter image */}
+                { isAddForm() && (
+                  <div className="form-group">
+                    <label htmlFor="picture">Image</label>
+                    <input id="picture" name="picture" type="text" className="form-control" value={form.picture.value} onChange={e => handleInputChange(e)}></input>
+                    {form.picture.error && 
+                    <div className="card-panel red accent-1">
+                        {form.picture.error}
+                    </div>}
+                  </div>    
+                )}
                 {/* fighter name */}
                 <div className="form-group">
                   <label htmlFor="name">Nom</label>

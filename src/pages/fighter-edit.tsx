@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import FighterForm from '../components/fighter-form';
 import Fighter from '../models/fighter';
-import FIGHTERS from '../models/mock-fighters';
+import FighterService from '../services/fighter-service';
  
 type Params = { id: string };
   
@@ -11,11 +11,8 @@ const FighterEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) 
   const [fighter, setfighter] = useState<Fighter|null>(null);
   
   useEffect(() => {
-    FIGHTERS.forEach(fighter => {
-      if (match.params.id === fighter.id.toString()) {
-        setfighter(fighter);
-      }
-    })
+    FighterService.getFighter(+match.params.id)
+    .then(fighter => setfighter(fighter))
   }, [match.params.id]);
     
   return (
@@ -23,7 +20,7 @@ const FighterEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) 
       { fighter ? (
         <div className="row">
             <h2 className="header center">Éditer { fighter.name }</h2>
-            <FighterForm fighter={fighter}></FighterForm>
+            <FighterForm fighter={fighter} isEditForm={true}></FighterForm>
         </div>
       ) : (
         <h4 className="center">Aucun fighter à afficher !</h4>

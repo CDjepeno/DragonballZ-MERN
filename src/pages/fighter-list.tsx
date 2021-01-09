@@ -1,26 +1,30 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import Fighter from '../models/fighter';
-import FIGHTERS from '../models/mock-fighters';
 import FighterCard from '../components/fighter-card';
+import FighterService from '../services/fighter-service';
+import { Link } from 'react-router-dom';
   
 const FighterList: FunctionComponent = () => {
   const [fighters, setFighters] = useState<Fighter[]>([]);
   
   useEffect(() => {
-    setFighters(FIGHTERS);
+    FighterService.getFighters()
+    .then(fighters => setFighters(fighters))
   }, []);
   
   return (
     <div>
-      <div className="head">
-        <img src="https://images2.alphacoders.com/739/739910.png" alt="logo"/>
-      </div>
       <div className="container"> 
         <div className="row"> 
         {fighters.map(fighter => (
           <FighterCard key={fighter.id} fighter={fighter} />
         ))}
         </div>
+        <Link className="btn-floating btn-large waves-effect waves-light red z-depth-3"
+         style={{position: 'fixed', bottom:'25px', right:'25px'}}
+         to="/fighter/add">
+           <i className="material-icons">add</i>
+         </Link>
       </div>
     </div> 
   );
