@@ -182,7 +182,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
           <div className="card hoverable"> 
           { isEditForm && (
               <div className="car-image">
-                <img src={fighter.picture} alt={fighter.name} style={{width: '210px', margin: '0 auto'}}/>
+                <img src={fighter.picture} alt={fighter.name} style={{width: '200px', marginLeft: '40%'}}/>
                 <span className="btn-floating halfway-fab waves-effect waves-light">
                   <i onClick={deleteFighter} className="material-icons">delete</i>
                 </span>
@@ -245,10 +245,10 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="card-action center">
+              <div className="center">
                 {/* Submit button */}
-                <button type="submit" className="btn" >Valider</button>
+                <button className="btn" type="submit" >Valider</button>
+              </div>
               </div>
             </div>
           </div>
