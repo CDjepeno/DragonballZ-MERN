@@ -1,8 +1,6 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { FunctionComponent, useState } from 'react';
 import FighterForm from '../components/fighter-form';
 import Fighter from '../models/fighter';
-import FighterService from '../services/fighter-service';
  
   
 const FighterAdd: FunctionComponent = () => {

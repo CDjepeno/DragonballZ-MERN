@@ -6,6 +6,8 @@ import FightersDetail from './pages/fighter-detail';
 import PageNotFound from './pages/page-not-found';
 import fighterEdit from './pages/fighter-edit';
 import FighterAdd from './pages/fighter-add';
+import Login from './pages/login';
+import PrivateRoute from './PrivateRoute'
  
 const App  : React.FC = () => {
 
@@ -20,11 +22,12 @@ const App  : React.FC = () => {
                 </div>
                 {/* Le système de gestion des routes de notre application */}
                 <Switch>
-                    <Route exact path="/" component={FighterList}/>
-                    <Route exact path="/fighters" component={FighterList}/>
-                    <Route path="/fighter/add" component={FighterAdd}/>
-                    <Route path="/fighters/edit/:id" component={fighterEdit}/>
-                    <Route path="/fighters/:id" component={FightersDetail}/>
+                    <PrivateRoute exact path="/" component={FighterList}/>
+                    <Route exact path="/login" component={Login}/>
+                    <PrivateRoute exact path="/fighters" component={FighterList}/>
+                    <PrivateRoute path="/fighter/add" component={FighterAdd}/>
+                    <PrivateRoute path="/fighters/edit/:id" component={fighterEdit}/>
+                    <PrivateRoute path="/fighters/:id" component={FightersDetail}/>
                     <Route component={PageNotFound}/>
                 </Switch>
             </div>

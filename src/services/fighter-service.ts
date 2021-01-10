@@ -26,7 +26,7 @@ export default class FighterService {
     }
     
     static addFighter(fighter: Fighter): Promise<Fighter> {
-        // delete fighter.created;
+        delete fighter.created;
 
         return fetch(`http://localhost:3001/fighters`,{
             method : 'POST',
@@ -42,6 +42,12 @@ export default class FighterService {
             method : 'DELETE',
             headers: { 'Content-Type': 'application/json'}
         })
+        .then(response => response.json())
+        .catch(error => this.handleError(error));
+    }
+
+    static searchFighter(term: string): Promise<Fighter[]> {
+        return fetch(`http://localhost:3001/fighters?q=${term}`)
         .then(response => response.json())
         .catch(error => this.handleError(error));
     }
