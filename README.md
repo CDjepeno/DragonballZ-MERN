@@ -5,4 +5,5 @@
 - Authentification
 - Requetes HTTP CRUD
 - Utilisation de la librairie json-server
+- Utilisation des Hooks
 - Sécurisation de formulaire
