@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import fighter from '../models/fighter';
 import formatType from '../helpers/format-type';
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import FighterService from '../services/fighter-service';
 
   
@@ -27,21 +27,21 @@ type Form = {
 const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
 
     const [form, setForm] = useState<Form>({
-        picture: {value: fighter.picture},
-        name: {value: fighter.name, isValid:true},
-        hp: {value: fighter.hp, isValid:true},
-        cp: {value: fighter.cp, isValid:true},
-        types: {value: fighter.types, isValid:true},
+        picture : {value: fighter.picture},
+        name    : {value: fighter.name, isValid:true},
+        hp      : {value: fighter.hp, isValid:true},
+        cp      : {value: fighter.cp, isValid:true},
+        types   : {value: fighter.types, isValid:true},
     })
 
     const history = useHistory();
-
   
     const types: string[] = [
         'Sayan', 'Namek', 'Pride Toopers', 'Dieu de la destruction', 'Hitman', 'Planet freezer',
         'Cyborg'
     ];
 
+  //  Permet de vérifier si le fighter as déja ce type
   const hasType = (type: string): boolean => {
     return form.types.value.includes(type);
   }
@@ -245,9 +245,12 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
                     </div>
                   ))}
                 </div>
-              <div className="center">
-                {/* Submit button */}
-                <button className="btn" type="submit" >Valider</button>
+                <div className="card-action ">
+                    <Link to="/">Retour</Link>
+                  </div>
+                <div className="center">
+                  {/* Submit button */}
+                  <button className="btn" type="submit" >Valider</button>
               </div>
               </div>
             </div>

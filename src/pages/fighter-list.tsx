@@ -20,9 +20,9 @@ const FighterList: FunctionComponent = () => {
       <div className="container"> 
         <FighterSearch/>
         <div className="row"> 
-        {fighters.map(fighter => (
-          <FighterCard key={fighter.id} fighter={fighter} />
-        ))}
+          {fighters.map(fighter => (
+            <FighterCard key={fighter.id} fighter={fighter} />
+          ))}
         </div>
         <Link className="btn-floating btn-large waves-effect waves-light red z-depth-3"
          style={{position: 'fixed', bottom:'25px', right:'25px'}}

@@ -1,6 +1,5 @@
 import Fighter from '../models/fighter';
-import React, { useState } from 'react';
-import formatDate from '../helpers/format-date'
+import React, { FunctionComponent, useState } from 'react';
 import formatType from '../helpers/format-type'
 import {  useHistory } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ type Props = {
     borderColor?: string
 }
 
-const FighterCard : React.FC<Props> = ({fighter, borderColor = '#ff0000'}) => {
+const FighterCard : FunctionComponent<Props> = ({fighter, borderColor = '#ff0000'}) => {
 
     const [color, setColor] = useState<string>();
     const history = useHistory();
@@ -36,7 +35,6 @@ const FighterCard : React.FC<Props> = ({fighter, borderColor = '#ff0000'}) => {
                 <div className="card-stacked">
                     <div className="card-content">
                         <p className="center b={-5}">{fighter.name}</p>
-                        {/* <p className="center"><small>{formatDate(fighter.created)}</small></p> */}
                         {fighter.types.map(type => (
                             <span key={type} className={formatType(type)}>{type}</span>
                         ))}

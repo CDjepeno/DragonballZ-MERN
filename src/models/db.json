@@ -83,7 +83,7 @@
     {
       "id": 9,
       "name": "Beerus",
-      "hp": 21,
+      "hp": "16",
       "cp": 7,
       "picture": "https://smallimg.pngkey.com/png/small/165-1655580_beerus-by-urielalv-dbohazd-dbs-beerus-png.png",
       "types": [
