@@ -3,7 +3,7 @@ import pkg from 'validator'
 const {isEmail} = pkg
 import bcrypt from 'bcrypt'
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     pseudo: {
         type: String
     },
@@ -13,7 +13,9 @@ const userSchema = mongoose.Schema({
             message: "Le champ email est requis"
         },
         validate: [isEmail, "L'email n'est pas au bon format"],
-        unique: true
+        unique: {
+            message: "Un utilisateur possède déja cette email"
+        }
     },
     password: {
         type: String,
@@ -24,7 +26,12 @@ const userSchema = mongoose.Schema({
     role: {
         type: [String],
         default: 'user'
+    },
+    time: {
+        type: Date,
+        default: Date.now
     }
+    
 })
 
 // Before - Register
@@ -38,6 +45,6 @@ userSchema.pre('save', async function(next) {
     next()
 })
 
-const UserModel = mongoose.model('User', userSchema)
+const UserModel = mongoose.model('User', userSchema) 
 
 export default UserModel

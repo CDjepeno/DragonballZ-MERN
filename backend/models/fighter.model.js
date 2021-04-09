@@ -1,4 +1,5 @@
 import  mongoose from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 
 const FighterSchema = new mongoose.Schema({
     hp: {
@@ -12,7 +13,10 @@ const FighterSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        lowercase: true
+        lowercase: true,
+        unique: {
+            message: "Un fighter as déja ce nom"
+        }
     },
     picture: {
         type: String,
@@ -24,7 +28,7 @@ const FighterSchema = new mongoose.Schema({
         required: true
     } 
 })
-
-const FighterModel = mongoose.model("User", FighterSchema)
+FighterSchema.plugin(uniqueValidator)
+const FighterModel = mongoose.model("Fighter", FighterSchema)
 
 export default FighterModel
