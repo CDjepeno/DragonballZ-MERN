@@ -13,7 +13,7 @@ export const register = (req,res) => {
             res.json({ message })
         })
         .catch(err => {
-            res.status(401).json(err.errors)
+            res.status(401).json(err.message)
         })
 }
 
