@@ -7,13 +7,19 @@ import FighterSearch from '../components/fighter-search';
   
 const FighterList: FunctionComponent = () => {
   const [fighters, setFighters] = useState<Fighter[]>([]);
+
+  const getData = async() => {
+    await FighterService.getFighters()
+    .then(fighters => setFighters(fighters))
+
+  }
   
   useEffect(() => {
-    FighterService.getFighters()
-    .then(fighters => setFighters(fighters))
+    getData()
   }, []);
   
-
+  console.log(fighters);
+  
   
   return (
     <div>

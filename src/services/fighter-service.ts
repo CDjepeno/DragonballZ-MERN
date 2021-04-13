@@ -1,10 +1,13 @@
 import Fighter from "../models/fighter";
+import axios from 'axios';
+import { FIGHTERS_API } from "../config";
  
 export default class FighterService {
  
     static getFighters(): Promise<Fighter[]> {
-        return fetch('http://localhost:3001/fighters')
-        .then(response => response.json())
+        return axios
+        .get(FIGHTERS_API)
+        .then(response => response.data)
         .catch(error => this.handleError(error));
     }
         

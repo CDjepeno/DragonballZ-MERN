@@ -33,7 +33,7 @@ export const login = (req,res) => {
                     if(isPasswordValid) {
                         const token = jwt.sign({userId: user.id}, process.env.TOKEN_SECRET, {expiresIn: '24H'})
                         const message = "Connecter"
-                        res.json({ message, token })
+                        res.json({ message, token, user })
                     } else {
                         const message = "Identifiant invalide"
                         res.status(401).json({ message })
@@ -45,6 +45,24 @@ export const login = (req,res) => {
             const message = "L'utilisateur n'a pas pu être connecter réesayer dans quelques instants"
             res.status(500).json({ message, data: err })
         })
+}
+
+export const isAuthenticatedManager = () => {
+    const token = window.localStorage.getItem('authToken')
+    const role = window.localStorage.getItem('roles')
+    
+    if(token) {
+        const jwtData = jwtDecode(token)
+
+        if(jwtData.exp > new Date().getTime() / 1000) {
+            if(role && role.split(',').includes("manager") && role.split(',').includes("user") ) {
+                return true 
+            } else {
+                return false
+            }
+        }
+    }
+    return false
 }
 
 export const logout = (_,res) => {
