@@ -11,7 +11,6 @@ const FighterList: FunctionComponent = () => {
   const getData = async() => {
     await FighterService.getFighters()
     .then(fighters => setFighters(fighters))
-
   }
   
   useEffect(() => {

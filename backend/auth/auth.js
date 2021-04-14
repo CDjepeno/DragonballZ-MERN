@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 
-
 export const auth = (req,res,next) => {
     const authorizationHeader = req.headers.authorization
 
@@ -18,7 +17,6 @@ export const auth = (req,res,next) => {
             res.status(401).json({ message })
         }
     
-
         const userId = decodedToken.userId
 
         if(req.body.userId && req.body.userId !== userId) {

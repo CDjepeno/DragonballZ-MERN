@@ -10,6 +10,7 @@
     "@types/react-router-dom": "^5.1.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta1",
+    "jwt-decode": "^3.1.2",
     "node-fetch": "^2.6.1",
     "node-sass": "^4.14.1",
     "react": "^17.0.0",

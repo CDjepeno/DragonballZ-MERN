@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import context from '../context/context';
 import AuthenticationService from '../services/authentication-service';
 
 type Field = {
@@ -17,15 +18,17 @@ type Form = {
 
 const Login: FunctionComponent = () => {
 
-  const history = useHistory();
-
+  
   const [form, setForm] = useState<Form>({
     email: "" ,
     password:"",
   });
-
   const [message, setMessage] = useState<string>('Vous êtes déconnecté');
-
+  const {isAuthenticatedUser, setIsAuthenticatedUser} = useContext(context)
+  const {isAuthenticatedManager, setIsAuthenticatedManager} = useContext(context)
+  
+  const history = useHistory();
+  
   const validateForm = () => {
     let newForm: Form = form;
 
@@ -55,7 +58,6 @@ const Login: FunctionComponent = () => {
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    
     const fieldName: string = e.target.name;
     const fieldValue: string = e.target.value;
     const newField = { [fieldName]:  fieldValue  };
@@ -66,21 +68,28 @@ const Login: FunctionComponent = () => {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     
-    const isFormValid = validateForm();
+    // const isFormValid = validateForm();
+    
     try {
-      if(isFormValid) {
-        setMessage('👉 Tentative de connexion en cours ...');
-        await AuthenticationService.login(form).then(isAuthenticated => {
-          if(!isAuthenticated) {
-            setMessage('🔐 Identifiant ou mot de passe incorrect.');
-            return;
-          } 
-          history.push('/fighters');
-        });
-      }
+      setMessage('👉 Tentative de connexion en cours ...');
+      await AuthenticationService.login(form)
+        .then(res => {
+          setIsAuthenticatedUser(true)
+        })
+        .catch(err => console.log(err))
+        
+        const isAuthenticatedM = await AuthenticationService.isAuthenticatedManager
+
+        setIsAuthenticatedManager(isAuthenticatedM)
+
+        history.replace('/fighters');
+
     } catch (error) {
-      console.log("une erreur est survenue")      
+      setMessage('🔐 Identifiant ou mot de passe incorrect.');
+      console.log(error);
+      
     }
+
   }
 
   return (
