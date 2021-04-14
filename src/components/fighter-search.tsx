@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Fighter from '../models/fighter';
+import { Link } from 'react-router-dom'
+import { Fighter } from '../pages/fighter-list'
 import FighterService from '../services/fighter-service';
  
 const FighterSearch: FunctionComponent = () => {
@@ -30,7 +30,7 @@ const FighterSearch: FunctionComponent = () => {
         </div> 
         <div className='collection' >
         {fighters.map((fighter) => (
-          <Link key={fighter.id} to={`/fighters/${fighter.id}`} className="collection-item" >
+          <Link key={fighter._id} to={`/fighters/${fighter._id}`} className="collection-item" >
             {fighter.name}
           </Link>
         ))}

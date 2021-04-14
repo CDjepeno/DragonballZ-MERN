@@ -9,5 +9,5 @@ type Props = {
 
 export const PrivateRouteManager:React.FC<Props> = ( { path, component } ) => {
     const { isAuthenticatedManager } = useContext(AuthContext)
-    return isAuthenticatedManager ? (<Route path={path} component={component}/>) : (<Redirect to='/login' />)
+    return isAuthenticatedManager ? (<Route path={path} component={component}/>) : (<Redirect to='/' />)
 }

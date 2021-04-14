@@ -2,8 +2,8 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import FighterForm from '../components/fighter-form';
 import Loader from '../components/loader';
-import Fighter from '../models/fighter';
 import FighterService from '../services/fighter-service';
+import { Fighter } from './fighter-list';
  
 type Params = { id: string };
   

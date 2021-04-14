@@ -8,8 +8,6 @@ export const auth = (req,res,next) => {
         res.status(403).json({message})
     }
 
-    console.log(authorizationHeader);
-
     const token = authorizationHeader.split(' ')[1]
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET, (error, decodedToken) => {
         if(error) {

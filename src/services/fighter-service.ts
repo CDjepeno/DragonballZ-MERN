@@ -1,6 +1,6 @@
-import Fighter from "../models/fighter";
 import axios from 'axios';
 import { FIGHTERS_API } from "../config";
+import { Fighter } from '../pages/fighter-list';
  
 export default class FighterService {
  
@@ -19,7 +19,7 @@ export default class FighterService {
     }
 
     static updateFighter(fighter: Fighter): Promise<Fighter> {
-        return fetch(`http://localhost:3001/fighters/${fighter.id}`,{
+        return fetch(`http://localhost:3001/fighters/${fighter._id}`,{
             method : 'PUT',
             body   : JSON.stringify(fighter),
             headers: { 'Content-Type': 'application/json'}
@@ -29,7 +29,7 @@ export default class FighterService {
     }
     
     static addFighter(fighter: Fighter): Promise<Fighter> {
-        delete fighter.created;
+        // delete fighter.created;
 
         return fetch(`http://localhost:3001/fighters`,{
             method : 'POST',
@@ -41,7 +41,7 @@ export default class FighterService {
     }
     
     static deleteFighter(fighter: Fighter): Promise<{}> {
-        return fetch(`http://localhost:3001/fighters/${fighter.id}`,{
+        return fetch(`http://localhost:3001/fighters/${fighter._id}`,{
             method : 'DELETE',
             headers: { 'Content-Type': 'application/json'}
         })

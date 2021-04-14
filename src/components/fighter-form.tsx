@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
-import fighter from '../models/fighter';
 import formatType from '../helpers/format-type';
 import { Link, useHistory } from 'react-router-dom'
 import FighterService from '../services/fighter-service';
+import { Fighter } from '../pages/fighter-list';
 
   
 type Props = {
-  fighter: fighter
+  fighter: Fighter
   isEditForm: boolean
 };
 
@@ -166,7 +166,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
   }
 
   const updateFighter = () => {
-    FighterService.updateFighter(fighter).then(() => history.push(`/fighters/${fighter.id}`));
+    FighterService.updateFighter(fighter).then(() => history.push(`/fighters/${fighter._id}`));
   }
 
   const deleteFighter = () => {

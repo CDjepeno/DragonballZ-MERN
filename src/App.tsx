@@ -11,10 +11,15 @@ import {PrivateRouteAll} from './components/privateRouteAll'
 import {PrivateRouteManager} from './components/privateRouteManager'
 import AuthenticationService from './services/authentication-service';
 import context from './context/context';
+import { Header } from './components/header';
+
+
+AuthenticationService.setup()
  
 const App  : React.FC = () => {
     const [isAuthenticatedManager,setIsAuthenticatedManager] = useState(AuthenticationService.isAuthenticatedManager)
     const [isAuthenticatedUser,setIsAuthenticatedUser] = useState(AuthenticationService.isAuthenticatedUser)
+    
 
     const contextValue = {
         isAuthenticatedUser,
@@ -23,31 +28,24 @@ const App  : React.FC = () => {
         setIsAuthenticatedManager
     }
 
-    return (
+    return (<>
         <context.Provider value={contextValue}>
             <HashRouter>
                 <div>
-                    {/* La barre de navigation commune a toutes les pages */}
-                    <div className="head">
-                    <Link to="/" className="band-logo center">
-                        <img src="https://images4.fanpop.com/image/photos/16100000/An-awesome-looking-DBZ-banner-dragonball-z-movie-characters-16137914-660-276.jpg" alt="logo"/>
-                    </Link>
-                    </div>
+                    <Header />
                     {/* Le système de gestion des routes de notre application */}
                     <Switch>
-                        <PrivateRouteAll path="/home" component={FighterList}/>
-                        <Route exact path="/login" component={Login}/>
                         <PrivateRouteAll  path="/fighters" component={FighterList}/>
                         <PrivateRouteManager path="/fighter/add" component={FighterAdd}/>
                         <PrivateRouteManager path="/fighters/edit/:id" component={fighterEdit}/>
                         <PrivateRouteAll path="/fighters/:id" component={FightersDetail}/>
+                        <Route exact path="/" component={Login}/>
                         <Route component={PageNotFound}/>
                     </Switch>
                 </div>
             </HashRouter>
         </context.Provider>
-        // <FighterList />
-    );
+    </>);
 }
   
 export default App;

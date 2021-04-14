@@ -4,6 +4,12 @@ import jwtDecode from 'jwt-decode'
 
 export default class AuthenticationService {
 
+    static logout() {
+        window.localStorage.removeItem('token')
+        delete axios.defaults.headers["Authorization"]
+        window.localStorage.removeItem('roles')
+    }
+
     static login(credentials: any): Promise<any> {
         return axios
             .post(LOGIN_API, credentials)
@@ -50,6 +56,17 @@ export default class AuthenticationService {
             }
         }
         return false
+    }
+
+    static setup() {
+        const token = window.localStorage.getItem('token')
+
+        if(token) {
+            const jwtData = jwtDecode(token)
+            if(jwtData.exp > new Date().getTime() / 1000) {
+                this.setAxiosToken(token)
+            }
+        }
     }
 
 
