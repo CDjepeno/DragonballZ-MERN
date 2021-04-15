@@ -68,28 +68,22 @@ const Login: FunctionComponent = () => {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     
-    // const isFormValid = validateForm();
+    const isFormValid = validateForm();
     
-    try {
-      setMessage('👉 Tentative de connexion en cours ...');
-      await AuthenticationService.login(form)
-        .then(res => {
-          setIsAuthenticatedUser(true)
-        })
-        .catch(err => console.log(err))
+    await AuthenticationService.login(form)
+    .then(res => {
+        setMessage('👉 Tentative de connexion en cours ...')
+        setIsAuthenticatedUser(true)
         
-        const isAuthenticatedM = await AuthenticationService.isAuthenticatedManager
+        const isAuthenticatedM =  AuthenticationService.isAuthenticatedManager
 
         setIsAuthenticatedManager(isAuthenticatedM)
 
         history.replace('/fighters');
-
-    } catch (error) {
-      setMessage('🔐 Identifiant ou mot de passe incorrect.');
-      console.log(error);
+      })
+      .catch(err => setMessage(err.response.data.message))
       
-    }
-
+      
   }
 
   return (

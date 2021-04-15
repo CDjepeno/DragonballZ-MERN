@@ -18,8 +18,9 @@ export default class AuthenticationService {
                 window.localStorage.setItem("token", data.token)
                 window.localStorage.setItem("roles", data.user[0].role)
                 this.setAxiosToken(data.token)
+                console.log(data);
+                
             })
-            .catch(error => this.handleError(error))
     }
 
     static isAuthenticatedUser() {

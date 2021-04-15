@@ -12,8 +12,11 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
     
   const [fighter, setfighter] = useState<Fighter|null>(null);
   
+  console.log(match.params.id);
+  
+
   useEffect(() => {
-    FighterService.getFighter(+match.params.id)
+    FighterService.getFighter(match.params.id)
     .then(fighter => setfighter(fighter))
   }, [match.params.id]);
     

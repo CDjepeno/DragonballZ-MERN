@@ -23,7 +23,8 @@ const FighterCard : FunctionComponent<Props> = ({fighter, borderColor = '#ff0000
     }
 
     const goToFighter = (_id: any) => {
-        history.push(`/fighters/${_id}`)
+        // console.log(_id);
+        history.replace(`/fighters/${_id}`)
     } 
 
     return ( 

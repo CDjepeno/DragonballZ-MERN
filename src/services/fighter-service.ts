@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FIGHTERS_API } from "../config";
+import { FIGHTERS_API, FIGHTER_API } from "../config";
 import { Fighter } from '../pages/fighter-list';
  
 export default class FighterService {
@@ -11,9 +11,10 @@ export default class FighterService {
         .catch(error => this.handleError(error));
     }
         
-    static getFighter(id: number): Promise<Fighter|null> {
-        return fetch(`http://localhost:3001/fighters/${id}`)
-        .then(response => response.json())
+    static getFighter(id: any): Promise<Fighter|null> {
+        return axios
+        .get(FIGHTER_API + id)
+        .then(response => response.data)
         .then(data => this.isEmpty(data) ? null : data)
         .catch(error => this.handleError(error));
     }

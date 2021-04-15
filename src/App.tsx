@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import './style.scss'
 import FighterList from './pages/fighter-list';
-import { Link, Route, HashRouter, Switch } from 'react-router-dom';
+import { Route, HashRouter, Switch } from 'react-router-dom';
 import FightersDetail from './pages/fighter-detail';
 import PageNotFound from './pages/page-not-found';
 import fighterEdit from './pages/fighter-edit';
@@ -35,11 +35,11 @@ const App  : React.FC = () => {
                     <Header />
                     {/* Le système de gestion des routes de notre application */}
                     <Switch>
-                        <PrivateRouteAll  path="/fighters" component={FighterList}/>
-                        <PrivateRouteManager path="/fighter/add" component={FighterAdd}/>
-                        <PrivateRouteManager path="/fighters/edit/:id" component={fighterEdit}/>
-                        <PrivateRouteAll path="/fighters/:id" component={FightersDetail}/>
-                        <Route exact path="/" component={Login}/>
+                        <PrivateRouteAll exact path="/fighters/:id" component={FightersDetail}/>
+                        <PrivateRouteManager exact path="/fighters/edit/:id" component={fighterEdit}/>
+                        <PrivateRouteAll exact path="/fighters" component={FighterList}/>
+                        <PrivateRouteManager exact path="/fighter/add" component={FighterAdd}/>
+                        <Route path="/" component={Login}/>
                         <Route component={PageNotFound}/>
                     </Switch>
                 </div>

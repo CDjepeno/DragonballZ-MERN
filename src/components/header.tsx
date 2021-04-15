@@ -11,15 +11,14 @@ export const Header: React.FC = ( ) => {
 
     const handleLogout = async() => {
         await AuthenticationService.logout()
-        
+        setIsAuthenticatedUser(false)
         history.replace('/')
-    }
-
+    }    
 
     return (<>
         {/* La barre de navigation commune a toutes les pages */}
         <div className="head">
-            <Link to="/" className="band-logo center">
+            <Link to="/fighters" className="band-logo center">
                 <img src="https://images4.fanpop.com/image/photos/16100000/An-awesome-looking-DBZ-banner-dragonball-z-movie-characters-16137914-660-276.jpg" alt="logo"/>
             </Link>
             {isAuthenticatedUser &&
