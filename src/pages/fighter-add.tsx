@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import FighterForm from '../components/fighter-form';
+import FighterForm from '../components/fighter-form-Add';
  
   
 const FighterAdd: FunctionComponent = () => {

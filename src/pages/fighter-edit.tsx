@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import FighterForm from '../components/fighter-form';
+import FighterForm from '../components/fighter-form-Add';
 import Loader from '../components/loader';
 import FighterService from '../services/fighter-service';
 import { Fighter } from './fighter-list';

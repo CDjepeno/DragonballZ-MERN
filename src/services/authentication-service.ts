@@ -21,6 +21,7 @@ export default class AuthenticationService {
                 console.log(data);
                 
             })
+
     }
 
     static isAuthenticatedUser() {
@@ -49,7 +50,7 @@ export default class AuthenticationService {
             const jwtData = jwtDecode(token)
 
             if(jwtData.exp > new Date().getTime() / 1000) {
-                if(role && role.split(',').includes("user") && role.split('').includes("manager") ) {
+                if(role && role.split(',').includes("user") && role.split(',').includes("manager") ) {
                     return true
                 } else {
                     return false

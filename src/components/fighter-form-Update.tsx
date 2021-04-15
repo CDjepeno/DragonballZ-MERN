@@ -25,7 +25,7 @@ type Form = {
 }
   
 const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
-
+  
     const [form, setForm] = useState<Form>({
         picture : {value: fighter.picture},
         name    : {value: fighter.name, isValid:true},

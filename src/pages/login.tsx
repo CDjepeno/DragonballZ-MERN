@@ -70,18 +70,22 @@ const Login: FunctionComponent = () => {
     
     const isFormValid = validateForm();
     
-    await AuthenticationService.login(form)
-    .then(res => {
-        setMessage('👉 Tentative de connexion en cours ...')
-        setIsAuthenticatedUser(true)
-        
-        const isAuthenticatedM =  AuthenticationService.isAuthenticatedManager
-
-        setIsAuthenticatedManager(isAuthenticatedM)
-
-        history.replace('/fighters');
-      })
-      .catch(err => setMessage(err.response.data.message))
+    try {
+      await AuthenticationService.login(form)
+      setMessage('👉 Tentative de connexion en cours ...')
+      setIsAuthenticatedUser(true)
+      
+      const isAuthenticatedM =  await AuthenticationService.isAuthenticatedManager
+  
+      setIsAuthenticatedManager(isAuthenticatedM)
+  
+      history.replace('/fighters');
+    } catch (err) {
+      setMessage(err.response.data.message)
+      
+    }
+  
+    
       
       
   }

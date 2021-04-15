@@ -1,16 +1,18 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import formatDate from '../helpers/format-date'
 import formatType from '../helpers/format-type'
 import FighterService from '../services/fighter-service';
 import Loader from '../components/loader';
 import { Fighter } from './fighter-list';
+import context from '../context/context';
   
 type Params = { id: string };
   
 const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     
   const [fighter, setfighter] = useState<Fighter|null>(null);
+  const {isAuthenticatedManager} = useContext(context)
   
   console.log(match.params.id);
   
@@ -29,9 +31,11 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
             <div className="card hoverable"> 
               <div className="card-image ">
                 <img src={fighter.picture} alt={fighter.name} style={{width: '210px', margin: '0 auto'}}/>
-                <Link to={`/fighters/edit/${fighter._id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
-                  <i className="material-icons">edit</i>
-                </Link>
+                {isAuthenticatedManager && 
+                  <Link to={`/fighters/edit/${fighter._id}`} className="btn btn-floating halfway-fab waves-effect waves-light">
+                    <i className="material-icons">edit</i>
+                  </Link>
+                }
               </div>
               
               <div className="card-stacked">
