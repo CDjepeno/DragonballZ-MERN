@@ -22,7 +22,7 @@ export const Header: React.FC = ( ) => {
                 <img src="https://images4.fanpop.com/image/photos/16100000/An-awesome-looking-DBZ-banner-dragonball-z-movie-characters-16137914-660-276.jpg" alt="logo"/>
             </Link>
             {isAuthenticatedUser &&
-                <Link to="/logout" className="band-logo right">
+                <Link to="/" className="band-logo right">
                     <Box>
                         <Button onClick={handleLogout} color="secondary" variant="contained">Logout</Button>
                     </Box>

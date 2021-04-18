@@ -23,8 +23,8 @@ const FighterSchema = new mongoose.Schema({
         required: true,
         lowercase: true
     }, 
-    types: {
-        type: [String], 
+    type: {
+        type: String, 
         required: true
     } 
 })

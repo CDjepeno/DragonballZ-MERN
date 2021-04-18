@@ -21,17 +21,17 @@ type Form = {
   name: Field,
   hp: Field,
   cp: Field,
-  types: Field
+  type: Field
 }
   
-const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
+const FighterFormUpdate: FunctionComponent<Props> = ({fighter, isEditForm}) => {
   
     const [form, setForm] = useState<Form>({
         picture : {value: fighter.picture},
         name    : {value: fighter.name, isValid:true},
         hp      : {value: fighter.hp, isValid:true},
         cp      : {value: fighter.cp, isValid:true},
-        types   : {value: fighter.types, isValid:true},
+        type   : {value: fighter.type, isValid:true},
     })
 
     const history = useHistory();
@@ -43,7 +43,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
 
   //  Permet de vérifier si le fighter as déja ce type
   const hasType = (type: string): boolean => {
-    return form.types.value.includes(type);
+    return form.type.value.includes(type);
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,11 +60,11 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
 
     if(checked) {
       // Si l'utilisateur coche un type, à l'ajoute à la liste des types du pokémon.
-      const newTypes: string[] = form.types.value.concat([type]);
+      const newTypes: string[] = form.type.value.concat([type]);
       newField = { value: newTypes };
     } else {
       // Si l'utilisateur décoche un type, on le retire de la liste des types du pokémon.
-      const newTypes: string[] = form.types.value.filter((currentType: string) => currentType !== type);
+      const newTypes: string[] = form.type.value.filter((currentType: string) => currentType !== type);
       newField = { value: newTypes };
     }
 
@@ -81,7 +81,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
         fighter.name = form.name.value;
         fighter.hp = form.hp.value;
         fighter.cp = form.cp.value;
-        fighter.types = form.types.value;
+        fighter.type = form.type.value;
 
        isEditForm ? updateFighter() : addFigther();
     }
@@ -146,13 +146,13 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
   const isTypesValid = (type: string): boolean => {
     // Cas n°1: Le figther a un seul type, qui correspond au type passé en paramètre.
     // Dans ce cas on revoie false, car l'utilisateur ne doit pas pouvoir décoché ce type (sinon le pokémon aurait 0 type, ce qui est interdit)
-    if (form.types.value.length === 1 && hasType(type)) {
+    if (form.type.value.length === 1 && hasType(type)) {
       return false;
     }
     
     // Cas n°1: Le figther a au moins 3 types.
     // Dans ce cas il faut empêcher à l'utilisateur de cocher un nouveau type, mais pas de décocher les types existants.
-    if (form.types.value.length >= 3 && !hasType(type)) { 
+    if (form.type.value.length >= 3 && !hasType(type)) { 
       return false; 
     } 
     
@@ -170,7 +170,7 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
   }
 
   const deleteFighter = () => {
-    FighterService.deleteFighter(fighter)
+    FighterService.updateFighter(fighter)
     .then(() => history.push(`/fighters`))
   }
 
@@ -261,4 +261,4 @@ const FighterForm: FunctionComponent<Props> = ({fighter, isEditForm}) => {
   );
 };
    
-export default FighterForm;
+export default FighterFormUpdate;

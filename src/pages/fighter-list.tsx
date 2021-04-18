@@ -6,8 +6,8 @@ import FighterSearch from '../components/fighter-search';
 import context from '../context/context';
 
 export type Fighter = {
-  _id: any,
-  types: Array<string>,
+  _id?: any,
+  type: string,
   hp: number,
   cp: number,
   name: string,

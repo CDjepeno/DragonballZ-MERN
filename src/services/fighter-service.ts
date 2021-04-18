@@ -19,6 +19,21 @@ export default class FighterService {
         .catch(error => this.handleError(error));
     }
 
+    static addFighter(fighter: Fighter): Promise<Fighter> {
+        return axios 
+            .post(FIGHTER_API, fighter)
+            .then(response => response.data)
+            .catch(error => this.handleError(error));
+    }
+
+    static deleteFighter(id: string): Promise<{}> {
+        return axios
+            .delete(FIGHTER_API + id)
+        .then(response => response.data)
+        .catch(error => this.handleError(error));
+    }
+
+
     static updateFighter(fighter: Fighter): Promise<Fighter> {
         return fetch(`http://localhost:3001/fighters/${fighter._id}`,{
             method : 'PUT',
@@ -29,26 +44,7 @@ export default class FighterService {
         .catch(error => this.handleError(error));
     }
     
-    static addFighter(fighter: Fighter): Promise<Fighter> {
-        // delete fighter.created;
-
-        return fetch(`http://localhost:3001/fighters`,{
-            method : 'POST',
-            body   : JSON.stringify(fighter),
-            headers: { 'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .catch(error => this.handleError(error));
-    }
     
-    static deleteFighter(fighter: Fighter): Promise<{}> {
-        return fetch(`http://localhost:3001/fighters/${fighter._id}`,{
-            method : 'DELETE',
-            headers: { 'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .catch(error => this.handleError(error));
-    }
 
     static searchFighter(term: string): Promise<Fighter[]> {
         return fetch(`http://localhost:3001/fighters?q=${term}`)

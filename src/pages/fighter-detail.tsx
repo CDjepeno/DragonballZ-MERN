@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { RouteComponentProps, Link, useHistory } from 'react-router-dom';
 import formatDate from '../helpers/format-date'
 import formatType from '../helpers/format-type'
 import FighterService from '../services/fighter-service';
 import Loader from '../components/loader';
 import { Fighter } from './fighter-list';
 import context from '../context/context';
+import { Box, Button } from '@material-ui/core';
   
 type Params = { id: string };
   
@@ -13,15 +14,18 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
     
   const [fighter, setfighter] = useState<Fighter|null>(null);
   const {isAuthenticatedManager} = useContext(context)
-  
-  console.log(match.params.id);
-  
-
+  const history = useHistory();
+    
   useEffect(() => {
     FighterService.getFighter(match.params.id)
     .then(fighter => setfighter(fighter))
   }, [match.params.id]);
-    
+  
+
+  const handleDelete = () => {
+    FighterService.deleteFighter(match.params.id)
+        history.replace('/fighters')
+  }
   return (
     <div>
       { fighter ? (
@@ -57,9 +61,8 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
                       <tr> 
                         <td>Types</td> 
                         <td>
-                          {fighter.types.map(type => (
-                           <span key={type} className={formatType(type)}>{type}</span>
-                          ))}</td> 
+                           <span className={formatType(fighter.type)}>{fighter.type}</span>
+                        </td> 
                       </tr> 
                       <tr> 
                         <td>Date de création</td> 
@@ -68,7 +71,14 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
                     </tbody>
                   </table>
                   <div className="card-action ">
-                    <Link to="/">Retour</Link>
+                    <Link to="/fighters">Retour</Link>
+                    {isAuthenticatedManager &&
+                        <Link to="/" className="band-logo right">
+                            <Box>
+                                <Button onClick={handleDelete} color="secondary" variant="contained">Supprimer</Button>
+                            </Box>
+                        </Link>
+                    }
                   </div>
                 </div>
               </div>

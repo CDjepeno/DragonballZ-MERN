@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import FighterForm from '../components/fighter-form-Add';
+import FighterFormUpdate from '../components/fighter-form-Update';
 import Loader from '../components/loader';
 import FighterService from '../services/fighter-service';
 import { Fighter } from './fighter-list';
@@ -21,7 +21,7 @@ const FighterEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) 
       { fighter ? (
         <div className="row">
             <h2 className="header center">Éditer { fighter.name }</h2>
-            <FighterForm fighter={fighter} isEditForm={true}></FighterForm>
+            <FighterFormUpdate fighter={fighter} isEditForm={true}></FighterFormUpdate>
         </div>
       ) : (
         <h4 className="center"><Loader/></h4>

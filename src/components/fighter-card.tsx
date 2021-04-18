@@ -36,9 +36,7 @@ const FighterCard : FunctionComponent<Props> = ({fighter, borderColor = '#ff0000
                 <div className="card-stacked">
                     <div className="card-content">
                         <p className="center b={-5}">{fighter.name}</p>
-                        {fighter.types.map(type => (
-                            <span key={type} className={formatType(type)}>{type}</span>
-                        ))}
+                            <span className={formatType(fighter.type)}>{fighter.type}</span>
                     </div>
                 </div>
             </div>

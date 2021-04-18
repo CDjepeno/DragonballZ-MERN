@@ -12,155 +12,85 @@ type Field = {
 }
 
 type Form = {
-  picture: string,
-  name: string,
-  hp: number,
-  cp: number,
-  types: string
+  picture: Field,
+  name: Field,
+  hp: Field,
+  cp: Field,
+  type: Field
+}
+
+type Props = {
+  fighter?: Fighter,
+  isEditForm?: boolean
 }
   
-const FighterForm: React.FC = () => {
+const FighterFormAdd: React.FC<Props> = ({fighter, isEditForm}) => {
   
-    const [form, setForm] = useState<Form>({
-        picture : "",
-        name    : "",
-        hp      : 0,
-        cp      : 0,
-        types   : ""
-    })
+  const [form, setForm] = useState<Form>({
+      picture : {value: ""},
+      name    : {value: ""},
+      hp      : {value: 0},
+      cp      : {value: 0},
+      type   : {value: ""}
+  })
 
-    const history = useHistory();
-  
-    const types: string[] = [
-        'Sayan', 'Namek', 'Pride Toopers', 'Dieu de la destruction', 'Hitman', 'Planet freezer',
-        'Cyborg'
-    ];
+  const history = useHistory();
+
+  const types: string[] = [
+    'Sayan', 'Namek', 'Pride Toopers', 'Dieu de la destruction', 'Hitman', 'Planet freezer',
+    'Cyborg'
+];
 
   //  Permet de vérifier si le fighter as déja ce type
   const hasType = (type: string): boolean => {
-    return form.types.value.includes(type);
+  return form.type.value === type;
   }
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const fieldName: string = e.target.name;
     const fieldValue: string = e.target.value;
-    const newField: Field = { [fieldName]: { value: fieldValue } };
+    const newField: Field = { [fieldName]: {value: fieldValue} };
 
     setForm({ ...form, ...newField});
   }
 
-  // const selectType = (type: string, e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   const checked = e.target.checked;
-  //   let newField: Field;
-
-  //   if(checked) {
-  //     // Si l'utilisateur coche un type, à l'ajoute à la liste des types du pokémon.
-  //     const newTypes: string[] = form.types.value.concat([type]);
-  //     newField = { value: newTypes };
-  //   } else {
-  //     // Si l'utilisateur décoche un type, on le retire de la liste des types du pokémon.
-  //     const newTypes: string[] = form.types.value.filter((currentType: string) => currentType !== type);
-  //     newField = { value: newTypes };
-  //   }
-
-  //   setForm({...form, ...{ types: newField }});
-  // }
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isForValid = validateForm();
-
-    // Si nos champs sont valide redirection
-    if(isForValid) {
-        fighter.picture = form.picture.value;
-        fighter.name = form.name.value;
-        fighter.hp = form.hp.value;
-        fighter.cp = form.cp.value;
-        fighter.types = form.types.value;
-
-       isEditForm ? updateFighter() : addFigther();
+    
+    const Fighter = {
+      picture: form.picture.value,
+      name: form.name.value,
+      hp: form.hp.value,
+      cp: form.cp.value,
+      type: form.type.value
     }
+
+    FighterService.addFighter(Fighter).then(() => history.push('/fighters'));
   }
 
-  // const validateForm = () => {
-    // let newForm: Form = form;
 
-    // // Validator url
-    //   const start = "https://";
-    //   // const end  = ".png";
-    //   // || !form.picture.value.endWith(end)
-    //   if(!form.picture.startsWith(start) ) {
-    //     const errorMsg: string = "L'url n'est pas valide.";
-    //     const newField: Field = { value: form.picture, error: errorMsg, isValid: false};
-    //     newForm = { ...form, ...{picture: newField } };
-    //   } else {
-    //     const newField: Field = { value: form.picture, error: "", isValid: false};
-    //     newForm = { ...form, ...{ picture: newField } };
-    //   }
-
-    // Validator name
-    // if(!/^[a-zA-Zàéè ]{3,25}$/.test(form.name.)) {
-    //   const errorMsg: string = 'Le nom du fighter est requis (1-25).';
-    //   const newField: Field = { value: form.name, error: errorMsg, isValid: false };
-    //   newForm = { ...newForm, ...{ name: newField } };
-    // } else {
-    //   const newField: Field = { value: form.name.value, error: '', isValid: true };
-    //   newForm = { ...newForm, ...{ name: newField } };
-    // }
-
-    // Validator hp
-    // if(!/^[0-9]{1,3}$/.test(form.hp.value)) {
-    //   const errorMsg: string = 'Les points de vie du fighter sont compris entre 0 et 999.';
-    //   const newField: Field = {value: form.hp.value, error: errorMsg, isValid: false};
-    //   newForm = { ...newForm, ...{ hp: newField } };
-    // } else {
-    //   const newField: Field = { value: form.hp.value, error: '', isValid: true };
-    //   newForm = { ...newForm, ...{ hp: newField } };
-    // }
-
-    // Validator cp
-  //   if(!/^[0-9]{1,2}$/.test(form.cp.value)) {
-  //     const errorMsg: string = 'Les dégâts du fighter sont compris entre 0 et 99';
-  //     const newField: Field = {value: form.cp.value, error: errorMsg, isValid: false};
-  //     newForm = { ...newForm, ...{ cp: newField } };
-  //   } else {
-  //     const newField: Field = { value: form.cp.value, error: '', isValid: true };
-  //     newForm = { ...newForm, ...{ cp: newField } };
-  //   }
-
-  //   setForm(newForm);
-  //   return newForm.name.isValid && newForm.hp.isValid && newForm.cp.isValid;
-  // }
-
-  // const isTypesValid = (type: string): boolean => {
-  //   // Cas n°1: Le figther a un seul type, qui correspond au type passé en paramètre.
-  //   // Dans ce cas on revoie false, car l'utilisateur ne doit pas pouvoir décoché ce type (sinon le pokémon aurait 0 type, ce qui est interdit)
-  //   if (form.types.value.length === 1 && hasType(type)) {
-  //     return false;
-  //   }
+  const selectType = (type: string, e: React.ChangeEvent<HTMLInputElement>): void => {
+    // console.log(e.target.checked);
+    console.log(type);
     
-  //   // Cas n°1: Le figther a au moins 3 types.
-  //   // Dans ce cas il faut empêcher à l'utilisateur de cocher un nouveau type, mais pas de décocher les types existants.
-  //   if (form.types.value.length >= 3 && !hasType(type)) { 
-  //     return false; 
-  //   } 
     
-  //   // Après avoir passé les deux tests ci-dessus, on renvoie 'true', 
-  //   // c'est-à-dire que l'on autorise l'utilisateur à cocher ou décocher un nouveau type.
-  //   return true;
-  // }
+    const checked = e.target.checked;
+    let newField: Field;
 
-  const addFigther = () => {
-    FighterService.addFighter(fighter).then(() => history.push('/fighters'));
-  }
+    if(checked) {
+      // Si l'utilisateur coche un type, à l'ajoute à la liste des types du fighter.
+      
+      const newTypes: any = type;
+      newField = { value: newTypes };
+    } else {
+      // Si l'utilisateur décoche un type, on le retire de la liste des types du pokémon.
+      const newTypes = form.type.value !== type;
+      newField = { value: newTypes };
+      return
+    }
 
-  const updateFighter = () => {
-    FighterService.updateFighter(fighter).then(() => history.push(`/fighters/${fighter._id}`));
-  }
-
-  const deleteFighter = () => {
-    FighterService.deleteFighter(fighter)
-    .then(() => history.push(`/fighters`))
+    setForm({...form, type: newField });
   }
 
   
@@ -175,40 +105,21 @@ const FighterForm: React.FC = () => {
                   <div className="form-group">
                     <label htmlFor="picture">Image</label>
                     <input id="picture" name="picture" type="text" className="form-control" value={form.picture.value} onChange={e => handleInputChange(e)}></input>
-                    {form.picture.error && 
-                    <div className="card-panel red accent-1">
-                        {form.picture.error}
-                    </div>}
                   </div>    
                 {/* fighter name */}
                 <div className="form-group">
                   <label htmlFor="name">Nom</label>
                   <input id="name" name="name" type="text" className="form-control" value={form.name.value} onChange={e => handleInputChange(e)}></input>
-                  {form.name.error && 
-                    <div className="card-panel red accent-1">
-                        {form.name.error}
-                    </div>
-                  }
                 </div>
                 {/* fighter hp */}
                 <div className="form-group">
                   <label htmlFor="hp">Point de vie</label>
                   <input id="hp" name="hp" type="number" className="form-control" value={form.hp.value} onChange={e => handleInputChange(e)}></input>
-                  {form.hp.error && 
-                    <div className="card-panel red accent-1">
-                        {form.hp.error}
-                    </div>
-                  }
                 </div>
                 {/* fighter cp */}
                 <div className="form-group">
                   <label htmlFor="cp">Dégâts</label>
                   <input id="cp" name="cp" type="number" className="form-control" value={form.cp.value} onChange={e => handleInputChange(e)}></input>
-                  {form.cp.error && 
-                    <div className="card-panel red accent-1">
-                        {form.cp.error}
-                    </div>
-                  }
                 </div>
                 {/* fighter types */}
                 <div className="form-group">
@@ -216,7 +127,7 @@ const FighterForm: React.FC = () => {
                   {types.map(type => (
                     <div key={type} style={{marginBottom: '10px'}}>
                       <label>
-                        <input id={type} type="checkbox" className="filled-in" disabled={!isTypesValid(type)} value={type} checked={hasType(type)} onChange={e => selectType(type, e)}></input>
+                        <input id={type} type="checkbox" className="filled-in" onChange={e => selectType(type, e)}  value={type} checked={hasType(type)} ></input>
                         <span>
                           <p className={formatType(type)}>{ type }</p>
                         </span>
@@ -225,7 +136,7 @@ const FighterForm: React.FC = () => {
                   ))}
                 </div>
                 <div className="card-action ">
-                    <Link to="/">Retour</Link>
+                    <Link to="/fighters">Retour</Link>
                   </div>
                 <div className="center">
                   {/* Submit button */}
@@ -240,4 +151,4 @@ const FighterForm: React.FC = () => {
   );
 };
    
-export default FighterForm;
+export default FighterFormAdd;
