@@ -10,10 +10,13 @@ type Params = { id: string };
 const FighterEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     
   const [fighter, setfighter] = useState<Fighter|null>(null);
+
+  const getData = async() => {
+    await FighterService.getFighter(match.params.id).then(fighter => setfighter(fighter))
+  }
   
   useEffect(() => {
-    FighterService.getFighter(+match.params.id)
-    .then(fighter => setfighter(fighter))
+    getData()
   }, [match.params.id]);
     
   return (
@@ -21,7 +24,7 @@ const FighterEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) 
       { fighter ? (
         <div className="row">
             <h2 className="header center">Éditer { fighter.name }</h2>
-            <FighterFormUpdate fighter={fighter} isEditForm={true}></FighterFormUpdate>
+            <FighterFormUpdate fighter={fighter} />
         </div>
       ) : (
         <h4 className="center"><Loader/></h4>

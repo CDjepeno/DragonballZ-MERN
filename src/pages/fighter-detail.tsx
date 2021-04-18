@@ -64,16 +64,12 @@ const FightersDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
                            <span className={formatType(fighter.type)}>{fighter.type}</span>
                         </td> 
                       </tr> 
-                      <tr> 
-                        <td>Date de création</td> 
-                        {/* <td>{formatDate(fighter.created)}</td>  */}
-                      </tr>
                     </tbody>
                   </table>
                   <div className="card-action ">
                     <Link to="/fighters">Retour</Link>
                     {isAuthenticatedManager &&
-                        <Link to="/" className="band-logo right">
+                        <Link to="/fighters" className="band-logo right">
                             <Box>
                                 <Button onClick={handleDelete} color="secondary" variant="contained">Supprimer</Button>
                             </Box>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useState } from 'react';
 import formatType from '../helpers/format-type';
 import { Link, useHistory } from 'react-router-dom'
 import FighterService from '../services/fighter-service';
@@ -70,10 +70,7 @@ const FighterFormAdd: React.FC<Props> = ({fighter, isEditForm}) => {
   }
 
 
-  const selectType = (type: string, e: React.ChangeEvent<HTMLInputElement>): void => {
-    // console.log(e.target.checked);
-    console.log(type);
-    
+  const selectType = (type: string, e: React.ChangeEvent<HTMLInputElement>): void => {   
     
     const checked = e.target.checked;
     let newField: Field;

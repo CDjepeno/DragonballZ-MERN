@@ -24,38 +24,12 @@ const Login: FunctionComponent = () => {
     password:"",
   });
   const [message, setMessage] = useState<string>('Vous êtes déconnecté');
-  const {isAuthenticatedUser, setIsAuthenticatedUser} = useContext(context)
-  const {isAuthenticatedManager, setIsAuthenticatedManager} = useContext(context)
+  const { setIsAuthenticatedUser} = useContext(context)
+  const { setIsAuthenticatedManager} = useContext(context)
   
   const history = useHistory();
   
-  const validateForm = () => {
-    let newForm: Form = form;
-
-    // Validator email
-    if(form.email.length < 3) {
-      const errorMsg: string = 'Votre prénom doit faire au moins 3 caractères de long.';
-      const newField: Field = { value: form.email, error: errorMsg, isValid: false };
-      newForm = { ...newForm, ...{ username: newField } };
-    } else {
-      const newField: Field = { value: form.email, error: '', isValid: true };
-      newForm = { ...newForm, ...{ username: newField } };
-    }
-
-    // Validator password
-    if(form.password.length < 6) {
-      const errorMsg: string = 'Votre mot de passe doit faire au moins 6 caractères de long.';
-      const newField: Field = {value: form.password, error: errorMsg, isValid: false};
-      newForm = { ...newForm, ...{ password: newField } };
-    } else {
-      const newField: Field = { value: form.password, error: '', isValid: true };
-      newForm = { ...newForm, ...{ password: newField } };
-    }
-
-    setForm(newForm);
-
-    return newForm.email.isValid && newForm.password.isValid;
-  }
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const fieldName: string = e.target.name;
@@ -67,8 +41,6 @@ const Login: FunctionComponent = () => {
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
-    
-    const isFormValid = validateForm();
     
     try {
       await AuthenticationService.login(form)
@@ -84,10 +56,6 @@ const Login: FunctionComponent = () => {
       setMessage(err.response.data.message)
       
     }
-  
-    
-      
-      
   }
 
   return (

@@ -29,23 +29,17 @@ export default class FighterService {
     static deleteFighter(id: string): Promise<{}> {
         return axios
             .delete(FIGHTER_API + id)
-        .then(response => response.data)
-        .catch(error => this.handleError(error));
+            .then(response => response.data)
+            .catch(error => this.handleError(error));
     }
 
-
-    static updateFighter(fighter: Fighter): Promise<Fighter> {
-        return fetch(`http://localhost:3001/fighters/${fighter._id}`,{
-            method : 'PUT',
-            body   : JSON.stringify(fighter),
-            headers: { 'Content-Type': 'application/json'}
-        })
-        .then(response => response.json())
-        .catch(error => this.handleError(error));
+    static updateFighter(id: string, object: any): Promise<Fighter> {
+        return axios
+            .put(FIGHTER_API + id, object)
+            .then(response => response.data)
+            .catch(error => this.handleError(error));
     }
     
-    
-
     static searchFighter(term: string): Promise<Fighter[]> {
         return fetch(`http://localhost:3001/fighters?q=${term}`)
         .then(response => response.json())
