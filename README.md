@@ -1,10 +1,45 @@
-![react_materialpng](https://user-images.githubusercontent.com/43074465/104114817-e6165880-5308-11eb-8707-80dd17183aec.png)
-![sass-100x100](https://user-images.githubusercontent.com/43074465/104114820-f6c6ce80-5308-11eb-807a-3087c6c2dade.png)
-![TypeScript](https://user-images.githubusercontent.com/43074465/106958667-f66bf880-6739-11eb-95fe-3e50b94a997b.png)
-# Dragonball-Z
+<p align="center"><h1 align="center">
+DragonballZ_MERN
+</h1>
+
+<p align="center">
+  Gestion de personnage de mangas 
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/Node.js-V.15.11.0-green" alt="Node.js version">
+    <img src="https://img.shields.io/badge/Express-V%204.17.1-green" alt="Express version">
+    <img src="https://img.shields.io/badge/Mongoose-V%5E5.10.7-green" alt="mongoose version">
+  <img src="https://img.shields.io/badge/React-V%2017.0.2-green" alt="react version">
+</p>
+
+![DragonballZ_MERN](https://user-images.githubusercontent.com/43074465/115287264-5aeeff00-a150-11eb-8c6d-757e68a78226.png)
+
+![MERN](https://user-images.githubusercontent.com/43074465/113595320-23a12e00-9639-11eb-9681-1414ca5f19d8.jpg)
+
+## Features
+### Node.js
+- Gestion des Personnages CRUD
+- Authentification JWT Token
+- Sécurisation formulaire
+- Sécurisation des routes avec le token
+
+### React.js
+- Utilisation des hooks
+- Gestion des roles (user, manager)
+- Typescript
+- Authentification JWT token
 - Système de routage.
-- Authentification.
-- Requetes HTTP CRUD.
-- Utilisation de la librairie json-server.
-- Utilisation des Hooks.
 - Sécurisation de formulaire.
+
+
+# Getting Started
+```bash
+$ git clone https://github.com/CDjepeno/DragonballZ-MERN.git
+$ cd DragonballZ-MERN
+$ npm install
+$ npm start
+$ cd Hotel-MERN/backend
+$ npm install
+$ npm run dev 
+```
