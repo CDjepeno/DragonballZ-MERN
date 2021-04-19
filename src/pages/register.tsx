@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
+import AuthenticationService from '../services/authentication-service';
 
 type Field = {
     value?: any,
@@ -20,12 +21,26 @@ export const Register: React.FC<RouteComponentProps> = ( { match } ) => {
         password: ""
     });
     const [message, setMessage] = useState<string>('Veuillez vous enregistrer');
+    const history = useHistory();
 
-    const handleSubmit = () => {
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {value, name} = e.target
+        const newField = {[name]: value}
+
+        setForm({...form, ...newField})
     }
 
-    const handleInp
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+
+        try {
+            AuthenticationService.register(form)
+            history.replace('/login');
+        } catch (error) {
+            setMessage(error.response.data.message)
+        }
+    }
 
     return (
         <form onSubmit={handleSubmit}>

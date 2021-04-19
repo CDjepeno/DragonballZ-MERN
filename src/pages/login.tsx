@@ -23,7 +23,7 @@ const Login: FunctionComponent = () => {
     email: "" ,
     password:"",
   });
-  const [message, setMessage] = useState<string>('Vous êtes déconnecté');
+  const [message, setMessage] = useState<string>('Veuillez vous connecté');
   const { setIsAuthenticatedUser} = useContext(context)
   const { setIsAuthenticatedManager} = useContext(context)
   

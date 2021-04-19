@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { LOGIN_API } from '../config';
+import { LOGIN_API, REGISTER_API } from '../config';
 import jwtDecode from 'jwt-decode'
 
 export default class AuthenticationService {
@@ -21,6 +21,14 @@ export default class AuthenticationService {
                 console.log(data);
                 
             })
+
+    }
+
+    static register(credentials: any): Promise<any> {
+        return axios
+            .post(REGISTER_API, credentials)
+            .then(response => response.data)
+            .then(data => console.log(data))
 
     }
 

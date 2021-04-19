@@ -15,6 +15,10 @@ export const Header: React.FC = ( ) => {
         history.replace('/')
     }    
 
+    const handleRegister = () => {
+        history.replace('/register')
+    }
+
     return (<>
         {/* La barre de navigation commune a toutes les pages */}
         <div className="head">
@@ -28,11 +32,11 @@ export const Header: React.FC = ( ) => {
                     </Box>
                 </Link>
             :
-            <Link to="/register" className="band-logo right">
-                <Box>
-                    <Button onClick={handleLogout} color="secondary" variant="contained">Logout</Button>
-                </Box>
-            </Link>
+                <Link to="/register" className="band-logo right">
+                    <Box>
+                        <Button onClick={handleRegister} color="primary" variant="contained">Enregistrement</Button>
+                    </Box>
+                </Link>
             }
         </div>
     </>)
