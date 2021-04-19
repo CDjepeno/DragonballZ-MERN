@@ -21,12 +21,18 @@ export const Header: React.FC = ( ) => {
             <Link to="/fighters" className="band-logo center">
                 <img src="https://images4.fanpop.com/image/photos/16100000/An-awesome-looking-DBZ-banner-dragonball-z-movie-characters-16137914-660-276.jpg" alt="logo"/>
             </Link>
-            {isAuthenticatedUser &&
+            {isAuthenticatedUser ?
                 <Link to="/" className="band-logo right">
                     <Box>
                         <Button onClick={handleLogout} color="secondary" variant="contained">Logout</Button>
                     </Box>
                 </Link>
+            :
+            <Link to="/register" className="band-logo right">
+                <Box>
+                    <Button onClick={handleLogout} color="secondary" variant="contained">Logout</Button>
+                </Box>
+            </Link>
             }
         </div>
     </>)

@@ -12,6 +12,7 @@ import {PrivateRouteManager} from './components/privateRouteManager'
 import AuthenticationService from './services/authentication-service';
 import context from './context/context';
 import { Header } from './components/header';
+import { Register } from './pages/register';
 
 
 AuthenticationService.setup()
@@ -39,6 +40,7 @@ const App  : React.FC = () => {
                         <PrivateRouteManager exact path="/fighters/edit/:id" component={fighterEdit}/>
                         <PrivateRouteAll exact path="/fighters" component={FighterList}/>
                         <PrivateRouteManager exact path="/fighter/add" component={FighterAdd}/>
+                        <Route path="/register" component={Register}/>
                         <Route path="/" component={Login}/>
                         <Route component={PageNotFound}/>
                     </Switch>

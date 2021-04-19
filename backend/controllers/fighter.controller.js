@@ -39,16 +39,25 @@ export const getOneFighter = (req,res) => {
         })
 }
 
-export const getAllFighters = (_, res) => {
-    FighterModel
-        .find({})
-        .then(fighters => {
-            res.json(fighters)
-        })
-        .catch(err => {
-            const message = "Un problème est survenue lors de la récupération des fighters"
-            res.status(500).send({message, data:err})
-        })
+export const getAllFighters = (req, res) => {
+    if (req.query.name) {
+        const nameQuery = req.query.name
+
+        FighterModel
+            .find({ name: {$regex: nameQuery} })
+            .then(fighter => res.json(fighter))
+   
+    } else {
+        FighterModel
+            .find({})
+            .then(fighters => {
+                res.json(fighters)
+            })
+            .catch(err => {
+                const message = "Un problème est survenue lors de la récupération des fighters"
+                res.status(500).send({message, data:err})
+            })
+    }
 }
 
 export const addFighter = (req,res) => {

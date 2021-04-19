@@ -11,13 +11,14 @@ const FighterSearch: FunctionComponent = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const term = e.target.value;
     setTerm(term);
+    console.log(term);
     
     if(term.length <= 1) {
         setFighters([]);
         return;
     }
     
-    FighterService.searchFighter(term).then(fighters => setFighters(fighters) );
+    FighterService.searchFighter(term).then(fighters => setFighters(fighters));
 }
 
   return (

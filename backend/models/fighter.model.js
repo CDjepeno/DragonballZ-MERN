@@ -21,7 +21,6 @@ const FighterSchema = new mongoose.Schema({
     picture: {
         type: String,
         required: true,
-        lowercase: true
     }, 
     type: {
         type: String, 

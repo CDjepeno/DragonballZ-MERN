@@ -41,9 +41,10 @@ export default class FighterService {
     }
     
     static searchFighter(term: string): Promise<Fighter[]> {
-        return fetch(`http://localhost:3001/fighters?q=${term}`)
-        .then(response => response.json())
-        .catch(error => this.handleError(error));
+        return axios
+            .get(FIGHTERS_API + `?name=${term}`)
+            .then(response => response.data)
+            .catch(error => this.handleError(error));
     }
 
 
