@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
 import { RouteComponentProps, Link, useHistory } from 'react-router-dom';
-import formatDate from '../helpers/format-date'
 import formatType from '../helpers/format-type'
 import FighterService from '../services/fighter-service';
 import Loader from '../components/loader';

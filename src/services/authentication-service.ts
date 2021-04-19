@@ -40,7 +40,7 @@ export default class AuthenticationService {
             const jwtData = jwtDecode(token)
 
             if(jwtData.exp > new Date().getTime() / 1000) {
-                if(role && role.split('').every(a => a === "user")) {
+                if(role && role === "user") {
                     return true
                 } else {
                     return false

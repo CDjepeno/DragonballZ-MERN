@@ -66,7 +66,8 @@ const Login: FunctionComponent = () => {
             <div className="card-stacked">
               <div className="card-content">
                 {/* Form message */}
-                {message && <div className="form-group">
+                {message && 
+                <div className="form-group">
                   <div className="card-panel grey lighten-5">
                     {message}
                   </div>
